@@ -53,7 +53,9 @@ void launch(struct Server *server){
     char buffer[BUFFER_SIZE];
 
     while(1){
+       printf("You can access it using this URL: http://localhost:%d\n", server->port);
        printf("///WAITING FOR HTTP REQUEST/// \n");
+
        int addrlen = sizeof(server->address);
        int new_socket = accept(server->socket, (struct sockaddr*)&server->address, (socklen_t*)&addrlen);
        ssize_t bytesRead = read(new_socket, buffer, BUFFER_SIZE - 1);
@@ -79,7 +81,7 @@ void launch(struct Server *server){
                          "</html>\r\n";
 
         write(new_socket, response, strlen(response));
-        printf("---HTTP REQUEST FINISHED--- \n");
+        printf("---HTTP REQUEST FINISHED--- \n\n");
         close(new_socket);
         //free(server);
         //free(buffer);
